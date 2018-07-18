@@ -1,13 +1,10 @@
 <template>
     <div>
         <a href="">Criar</a>
-
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    
                     <th v-for="titulo in titulos" :key="titulo">{{titulo}}</th>
-
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -19,7 +16,6 @@
                         <a href="">Excluir</a>
                     </td>   
                 </tr>
-                
             </tbody>
         </table>
     </div>
