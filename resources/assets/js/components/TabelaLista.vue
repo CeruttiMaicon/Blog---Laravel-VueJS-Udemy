@@ -10,20 +10,26 @@
             </thead>
             <tbody>
                 <tr v-for="(item, index) in itens" :key="index">
+                    <!-- Aqui é feito o formulario onde o Vue faz um for pegando os itens passados no array -->
                     <td v-for="i in item" :key="i">{{i}}</td>
+                    <!-- Ṣe um desses campos vier ele mostrara em tela -->
                     <td v-if="detalhe || editar || deletar">
                         <form v-bind:id="index" v-if="token && deletar" v-bind:action="deletar" method="post">
+                            <!-- Campos ocultos para mandar o metodo e o token -->
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" v-bind:value="token">
                             <a v-if="detalhe" v-bind:href="detalhe">Detalhes |</a> 
                             <a v-if="editar"  v-bind:href="editar" > Editar |</a>
+                            <!-- Funcao do botao delete -->
                             <a href="#" v-on:click="executaForm(index)"> Deletar </a>
                         </form>
+                        <!-- Caso nao seja passado o token -->
                         <span v-if="!token">
                             <a v-if="detalhe" v-bind:href="detalhe">Detalhes |</a> 
                             <a v-if="editar"  v-bind:href="editar" > Editar |</a>
                             <a v-if="deletar"  v-bind:href="deletar" > Deletar</a>
                         </span>
+                        <!-- Caso o token seja passado mas a rota de deletar nao -->
                         <span v-if="token && !deletar">
                             <a v-if="detalhe" v-bind:href="detalhe">Detalhes |</a> 
                             <a v-if="editar"  v-bind:href="editar" > Editar</a>
@@ -51,6 +57,7 @@
          *          COMPUTED
          *      O computed quando a função será repetida varias vezes e não tera uma interação do usuario
          *
+         *      Abaixo a funcao de deletar que é utilizada acima
          */
         methods:{
             executaForm: function(index){
