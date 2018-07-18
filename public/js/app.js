@@ -48231,9 +48231,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['titulos', 'itens', 'criar', 'detalhe', 'deletar', 'editar', 'token']
+    props: ['titulos', 'itens', 'criar', 'detalhe', 'deletar', 'editar', 'token'],
+    /*      
+     *  Existem dois tipos de metodos para criar funções no Vue o computed e o methods
+     *
+     *          METHODS
+     *      Os methos são execuados varias vezes enquanto se utiliza uma função e vai modificar alguma
+     *  informação de uma listagem. Não é interessante utilizar o method para funções de listagem, mas
+     *  você o utiliza-ra sempre que a ação for dada por parte do usuario.
+     *      Ex: um botão onde o usuario terá a função do click para realizar a função, assim esse metodo não
+     *  será utilizado toda a vez quando a pagina for atualizada e/ou estiver carregando uma lista
+     *      
+     *          COMPUTED
+     *      O computed quando a função será repetida varias vezes e não tera uma interação do usuario
+     *
+     */
+    methods: {
+        executaForm: function executaForm(index) {
+            document.getElementById('id').submit();
+        }
+    }
 
 });
 
@@ -48269,10 +48295,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(_vm.itens, function(item) {
+        _vm._l(_vm.itens, function(item, index) {
           return _c(
             "tr",
-            { key: item },
+            { key: index },
             [
               _vm._l(item, function(i) {
                 return _c("td", { key: i }, [_vm._v(_vm._s(i))])
@@ -48281,20 +48307,59 @@ var render = function() {
               _vm.detalhe || _vm.editar || _vm.deletar
                 ? _c("td", [
                     _vm.token && _vm.deletar
-                      ? _c("form", { attrs: { action: "", method: "post" } }, [
-                          _c("input", {
+                      ? _c(
+                          "form",
+                          {
                             attrs: {
-                              type: "hidden",
-                              name: "_method",
-                              value: "DELETE"
+                              id: index,
+                              action: _vm.deletar,
+                              method: "post"
                             }
-                          }),
-                          _vm._v(" "),
-                          _c("input", {
-                            attrs: { type: "hidden", name: "_token" },
-                            domProps: { value: _vm.token }
-                          }),
-                          _vm._v(" "),
+                          },
+                          [
+                            _c("input", {
+                              attrs: {
+                                type: "hidden",
+                                name: "_method",
+                                value: "DELETE"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              attrs: { type: "hidden", name: "_token" },
+                              domProps: { value: _vm.token }
+                            }),
+                            _vm._v(" "),
+                            _vm.detalhe
+                              ? _c("a", { attrs: { href: _vm.detalhe } }, [
+                                  _vm._v("Detalhes |")
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.editar
+                              ? _c("a", { attrs: { href: _vm.editar } }, [
+                                  _vm._v(" Editar |")
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.executaForm(index)
+                                  }
+                                }
+                              },
+                              [_vm._v(" Deletar ")]
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.token
+                      ? _c("span", [
                           _vm.detalhe
                             ? _c("a", { attrs: { href: _vm.detalhe } }, [
                                 _vm._v("Detalhes |")
@@ -48307,9 +48372,27 @@ var render = function() {
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          _c("button", { attrs: { type: "submit" } }, [
-                            _vm._v("Delete")
-                          ])
+                          _vm.deletar
+                            ? _c("a", { attrs: { href: _vm.deletar } }, [
+                                _vm._v(" Deletar")
+                              ])
+                            : _vm._e()
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.token && !_vm.deletar
+                      ? _c("span", [
+                          _vm.detalhe
+                            ? _c("a", { attrs: { href: _vm.detalhe } }, [
+                                _vm._v("Detalhes |")
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.editar
+                            ? _c("a", { attrs: { href: _vm.editar } }, [
+                                _vm._v(" Editar")
+                              ])
+                            : _vm._e()
                         ])
                       : _vm._e()
                   ])
