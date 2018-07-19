@@ -48275,6 +48275,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         executaForm: function executaForm(index) {
             document.getElementById('id').submit();
+        },
+        ordenaColuna: function ordenaColuna(coluna) {
+            this.ordemCol = coluna;
+            if (this.ordem.toLowerCase() == "asc") {
+                this.ordem = "desc";
+            } else if (this.ordem.toLowerCase() == "desc") {
+                this.ordem = "asc";
+            }
         }
     },
 
@@ -48412,8 +48420,20 @@ var render = function() {
         _c(
           "tr",
           [
-            _vm._l(_vm.titulos, function(titulo) {
-              return _c("th", { key: titulo }, [_vm._v(_vm._s(titulo))])
+            _vm._l(_vm.titulos, function(titulo, index) {
+              return _c(
+                "th",
+                {
+                  key: titulo,
+                  staticStyle: { cursor: "pointer" },
+                  on: {
+                    click: function($event) {
+                      _vm.ordenaColuna(index)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(titulo))]
+              )
             }),
             _vm._v(" "),
             _vm.detalhe || _vm.editar || _vm.deletar
