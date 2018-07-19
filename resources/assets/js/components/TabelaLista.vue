@@ -1,6 +1,14 @@
 <template>
     <div>
-        <a v-if="criar" v-bind:href="criar">Criar</a>
+        <!-- Div que deixa os elementos em linha (No bootstrap 4 deve ser adicionado form-inline-block ou form-inline-flex)-->
+        <div class="form-inline-flex">
+            <a v-if="criar" v-bind:href="criar">Criar</a>
+            <!-- Pull Right - deixa os elementos a direita -->
+            <div class="form-group pull-right">
+                                                                                   <!-- Criando uma variavel -->
+                <input type="search" class="form-controll" placeholder="Buscar..." v-model="buscar">
+            </div>
+        </div>
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -9,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in itens" :key="index">
+                <tr v-for="(item, index) in lista" :key="index">
                     <!-- Aqui é feito o formulario onde o Vue faz um for pegando os itens passados no array -->
                     <td v-for="i in item" :key="i">{{i}}</td>
                     <!-- Ṣe um desses campos vier ele mostrara em tela -->
@@ -63,7 +71,45 @@
             executaForm: function(index){
                 document.getElementById('id').submit();
             }
+        },
+
+        computed:{
+            lista:function(){
+                /*     Fazendo o filtro dos itens
+                    Com o return true  - ele volta todos os itens
+                    Com o return false - nenhum item
+
+                    O filter faz um laço de repeticao com todos os itens
+                */
+                return this.itens.filter(res => {
+                    /*     Fazendo a função de busca
+                        Se o valor encontrado for maior que zero é por que tem valores que se encaixam com a busca
+                        toLowerCase() - Converte o valor do array em minusculos
+                        indexOf()     - Faz a função de busca
+
+                        (res[i] + "") - Este trecho de ccódigo serve apenas para fazer a concatenação
+                                        do valor com um vazio para transformalo em um tipo String
+                    */ 
+                    for(let i = 0; i < res.length; i++){
+                        if((res[i] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0){
+                            return true;
+                        } 
+                    }
+                    return false;
+                    
+                    
+                });
+                return this.itens;
+            }
+        },
+
+        data: function() {
+            return {
+                buscar:'',
+            }
         }
+
+        
 
     }
 </script>
