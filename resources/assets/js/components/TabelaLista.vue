@@ -74,11 +74,11 @@
                 document.getElementById('id').submit();
             },
             ordenaColuna: function(coluna) {
-                this.ordemCol = coluna;
-                if(this.ordem.toLowerCase() == "asc"){
-                    this.ordem = "desc";
-                } else if (this.ordem.toLowerCase() == "desc"){
-                    this.ordem = "asc"
+                this.ordemColAux = coluna;
+                if(this.ordemAux.toLowerCase() == "asc"){
+                    this.ordemAux = "desc";
+                } else if (this.ordemAux.toLowerCase() == "desc"){
+                    this.ordemAux = "asc"
                 }
             }
         },
@@ -88,8 +88,8 @@
 
                 //Criando as variaveis locais
                 //Se for passado a tag ordem OU || valor padrao de ordenacao
-                let ordem = this.ordem || "ASC";
-                let ordemCol = this.ordemCol || 0;
+                let ordem = this.ordemAux;
+                let ordemCol = this.ordemColAux;
 
                 //Transforma este valor em um número inteiro
                 ordemCol = parseInt(ordemCol);
@@ -137,9 +137,6 @@
                     });
                 }
 
-
-                
-
                 /*     FILTRO DOS ITENS
                     Com o return true  - ele volta todos os itens
                     Com o return false - nenhum item
@@ -172,6 +169,8 @@
         data: function() {
             return {
                 buscar:'',
+                ordemAux:this.ordem || 'asc',
+                ordemColAux: this.ordemCol || 0,
             }
         }
     }

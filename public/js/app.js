@@ -48277,11 +48277,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             document.getElementById('id').submit();
         },
         ordenaColuna: function ordenaColuna(coluna) {
-            this.ordemCol = coluna;
-            if (this.ordem.toLowerCase() == "asc") {
-                this.ordem = "desc";
-            } else if (this.ordem.toLowerCase() == "desc") {
-                this.ordem = "asc";
+            this.ordemColAux = coluna;
+            if (this.ordemAux.toLowerCase() == "asc") {
+                this.ordemAux = "desc";
+            } else if (this.ordemAux.toLowerCase() == "desc") {
+                this.ordemAux = "asc";
             }
         }
     },
@@ -48292,8 +48292,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             //Criando as variaveis locais
             //Se for passado a tag ordem OU || valor padrao de ordenacao
-            var ordem = this.ordem || "ASC";
-            var ordemCol = this.ordemCol || 0;
+            var ordem = this.ordemAux;
+            var ordemCol = this.ordemColAux;
 
             //Transforma este valor em um número inteiro
             ordemCol = parseInt(ordemCol);
@@ -48371,7 +48371,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            buscar: ''
+            buscar: '',
+            ordemAux: this.ordem || 'asc',
+            ordemColAux: this.ordemCol || 0
         };
     }
 });
