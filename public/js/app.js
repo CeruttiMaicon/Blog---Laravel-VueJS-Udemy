@@ -48270,6 +48270,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      *
      *      Abaixo a funcao de deletar que é utilizada acima
      */
+
     methods: {
         executaForm: function executaForm(index) {
             document.getElementById('id').submit();
@@ -48280,19 +48281,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         lista: function lista() {
             var _this = this;
 
-            /*     Fazendo o filtro dos itens
+            /*
+             *        FUNÇÃO PARA ORDENAÇÃO DOS ITENS DA TABELA
+             *
+             *    sort() - É o que faz a ordenação, a a função de dentro funciona da seguinte maneira
+             *             O default do sort é crescente, ou se quiser personalizar deve ser passado
+             *             uma função, um parametro A e B, e com a função o seu retorno deve ser
+             *             ZERO ou um valor positivo ou um valor negativo.
+             *                
+             *                  (Ordenando desta maneira temos um retorn CRESCENTE)
+             *             Se A e B forem iguais, return ZERO
+             *             Se A > B, return numero positivo
+             *             Se A < B, return numero negativo
+             *
+             *                  (Ordenando desta maneira temos um retorn DECRESCENTE)
+             *             Se A e B forem iguais, return ZERO
+             *             Se A < B, return numero positivo
+             *             Se A > B, return numero negativo
+             */
+            this.itens.sort(function (a, b) {
+                if (a[0] > b[0]) {
+                    return 1;
+                } else if (a[0] < b[0]) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+
+            /*     FILTRO DOS ITENS
                 Com o return true  - ele volta todos os itens
                 Com o return false - nenhum item
                  O filter faz um laço de repeticao com todos os itens
             */
             return this.itens.filter(function (res) {
-                /*     Fazendo a função de busca
-                    Se o valor encontrado for maior que zero é por que tem valores que se encaixam com a busca
-                    toLowerCase() - Converte o valor do array em minusculos
-                    indexOf()     - Faz a função de busca
-                     (res[i] + "") - Este trecho de ccódigo serve apenas para fazer a concatenação
-                                    do valor com um vazio para transformalo em um tipo String
-                */
+                /*     FUNÇÃO DE BUSCA
+                 *   Se o valor encontrado for maior que zero é por que tem valores que se encaixam com a busca
+                 *   toLowerCase() - Converte o valor do array em minusculos
+                 *   indexOf()     - Faz a função de busca
+                 *  
+                 *   (res[i] + "") - Este trecho de ccódigo serve apenas para fazer a concatenação
+                 *                   do valor com um vazio para transformalo em um tipo String
+                 */
                 for (var i = 0; i < res.length; i++) {
                     if ((res[i] + "").toLowerCase().indexOf(_this.buscar.toLowerCase()) >= 0) {
                         return true;
@@ -48309,7 +48339,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             buscar: ''
         };
     }
-
 });
 
 /***/ }),
