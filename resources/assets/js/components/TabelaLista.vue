@@ -51,7 +51,7 @@
 
 <script>
     export default {
-        props:['titulos', 'itens', 'criar', 'detalhe', 'deletar', 'editar', 'token'],
+        props:['titulos', 'itens', 'criar', 'detalhe', 'deletar', 'editar', 'token', 'ordem', 'ordemCol'],
         
         /*      
          *  Existem dois tipos de metodos para criar funções no Vue o computed e o methods
@@ -78,6 +78,16 @@
         computed:{
             lista:function(){
 
+                //Criando as variaveis locais
+                //Se for passado a tag ordem OU || valor padrao de ordenacao
+                let ordem = this.ordem || "ASC";
+                let ordemCol = this.ordemCol || 0;
+
+                //Transforma este valor em um número inteiro
+                ordemCol = parseInt(ordemCol);
+                // Para evitar problemas com letras maiusculas
+                ordem = ordem.toLowerCase();
+
                 /*
                  *        FUNÇÃO PARA ORDENAÇÃO DOS ITENS DA TABELA
                  *
@@ -97,15 +107,30 @@
                  *             Se A > B, return numero negativo
                  */
 
-                this.itens.sort(function(a,b){
-                    if (a[0] > b[0]){
-                        return 1;
-                    } else if (a[0] < b[0]){
-                        return -1;
-                    } else {
-                        return 0;
-                    }
-                });
+                if(ordem == "asc"){
+                    this.itens.sort(function(a,b){
+                        if (a[ordemCol] > b[ordemCol]){
+                            return 1;
+                        } else if (a[ordemCol] < b[ordemCol]){
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    });
+                } else {
+                    this.itens.sort(function(a,b){
+                        if (a[ordemCol] < b[ordemCol]){
+                            return 1;
+                        } else if (a[ordemCol] > b[ordemCol]){
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    });
+                }
+
+
+                
 
                 /*     FILTRO DOS ITENS
                     Com o return true  - ele volta todos os itens

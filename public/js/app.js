@@ -48254,7 +48254,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['titulos', 'itens', 'criar', 'detalhe', 'deletar', 'editar', 'token'],
+    props: ['titulos', 'itens', 'criar', 'detalhe', 'deletar', 'editar', 'token', 'ordem', 'ordemCol'],
+
     /*      
      *  Existem dois tipos de metodos para criar funções no Vue o computed e o methods
      *
@@ -48281,6 +48282,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         lista: function lista() {
             var _this = this;
 
+            //Criando as variaveis locais
+            //Se for passado a tag ordem OU || valor padrao de ordenacao
+            var ordem = this.ordem || "ASC";
+            var ordemCol = this.ordemCol || 0;
+
+            //Transforma este valor em um número inteiro
+            ordemCol = parseInt(ordemCol);
+            // Para evitar problemas com letras maiusculas
+            ordem = ordem.toLowerCase();
+
             /*
              *        FUNÇÃO PARA ORDENAÇÃO DOS ITENS DA TABELA
              *
@@ -48299,22 +48310,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
              *             Se A < B, return numero positivo
              *             Se A > B, return numero negativo
              */
-            this.itens.sort(function (a, b) {
-                if (a[0] > b[0]) {
-                    return 1;
-                } else if (a[0] < b[0]) {
-                    return -1;
-                } else {
-                    return 0;
-                }
-            });
+
+            if (ordem == "asc") {
+                this.itens.sort(function (a, b) {
+                    if (a[ordemCol] > b[ordemCol]) {
+                        return 1;
+                    } else if (a[ordemCol] < b[ordemCol]) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                });
+            } else {
+                this.itens.sort(function (a, b) {
+                    if (a[ordemCol] < b[ordemCol]) {
+                        return 1;
+                    } else if (a[ordemCol] > b[ordemCol]) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                });
+            }
 
             /*     FILTRO DOS ITENS
                 Com o return true  - ele volta todos os itens
                 Com o return false - nenhum item
                  O filter faz um laço de repeticao com todos os itens
             */
+
             return this.itens.filter(function (res) {
+
                 /*     FUNÇÃO DE BUSCA
                  *   Se o valor encontrado for maior que zero é por que tem valores que se encaixam com a busca
                  *   toLowerCase() - Converte o valor do array em minusculos
@@ -48323,6 +48349,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                  *   (res[i] + "") - Este trecho de ccódigo serve apenas para fazer a concatenação
                  *                   do valor com um vazio para transformalo em um tipo String
                  */
+
                 for (var i = 0; i < res.length; i++) {
                     if ((res[i] + "").toLowerCase().indexOf(_this.buscar.toLowerCase()) >= 0) {
                         return true;
