@@ -5,7 +5,7 @@
 <pagina tamanho="9">
     <painel titulo="Dashboard">
 
-        Teste de conteudo...
+    <migalhas v-bind:lista="{{$listaMigalhas}}"></migalhas>
         <div class="row">
             <div class="col-md-4">
             <caixa qtd="80" titulo="Artigos" url="{{route('artigos.index')}}" cor="#e534e5" icone="ion-social-tux">
