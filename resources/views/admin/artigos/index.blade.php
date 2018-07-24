@@ -7,7 +7,7 @@
     <migalhas v-bind:lista="{{$listaMigalhas}}"></migalhas>
 
     
-
+    {{-- O momdal link chama a classe Vue que faz o botao do modal --}}
     <modal-link tipo="" nome="meuModalTeste" titulo="Criar" css="">
 
     </modal-link>
