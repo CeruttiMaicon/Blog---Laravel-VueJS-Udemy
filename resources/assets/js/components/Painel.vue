@@ -20,7 +20,7 @@
 </script>
 
 
-// Dentro dessa tag de stylos podemos personalizar ainda mais o CSS da nossa aplicacao
+//  Dentro dessa tag de stylos podemos personalizar ainda mais o CSS da nossa aplicacao
 <style media="screen">
 .blue {
     border-color: #3A6CB8 !important;
