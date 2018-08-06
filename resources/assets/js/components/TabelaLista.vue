@@ -2,7 +2,9 @@
     <div>
         <!-- Div que deixa os elementos em linha (No bootstrap 4 deve ser adicionado form-inline-block ou form-inline-flex)-->
         <div class="form-inline-flex">
-            <a v-if="criar" v-bind:href="criar">Criar</a>
+            <a v-if="criar && !modal" v-bind:href="criar">Criar</a>
+            
+            <modal-link v-if="criar && modal" tipo="link" nome="adicionar" titulo="Criar" css=""> </modal-link>
             <!-- Pull Right - deixa os elementos a direita -->
             <div class="form-group pull-right">
                                                                                    <!-- Criando uma variavel -->
@@ -27,20 +29,23 @@
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" v-bind:value="token">
                             <a v-if="detalhe" v-bind:href="detalhe">Detalhes |</a> 
-                            <a v-if="editar"  v-bind:href="editar" > Editar |</a>
+                            <a v-if="editar && !modal"  v-bind:href="editar" > Editar |</a>
+                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo=" Editar |" css=""> </modal-link>
                             <!-- Funcao do botao delete -->
                             <a href="#" v-on:click="executaForm(index)"> Deletar </a>
                         </form>
                         <!-- Caso nao seja passado o token -->
                         <span v-if="!token">
                             <a v-if="detalhe" v-bind:href="detalhe">Detalhes |</a> 
-                            <a v-if="editar"  v-bind:href="editar" > Editar |</a>
+                            <a v-if="editar && !modal"  v-bind:href="editar" > Editar |</a>
+                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo=" Editar |" css=""> </modal-link>
                             <a v-if="deletar"  v-bind:href="deletar" > Deletar</a>
                         </span>
                         <!-- Caso o token seja passado mas a rota de deletar nao -->
                         <span v-if="token && !deletar">
                             <a v-if="detalhe" v-bind:href="detalhe">Detalhes |</a> 
-                            <a v-if="editar"  v-bind:href="editar" > Editar</a>
+                            <a v-if="editar && !modal"  v-bind:href="editar" > Editar |</a>
+                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo=" Editar |" css=""> </modal-link>
                         </span>
                     </td>   
                 </tr>
@@ -51,7 +56,7 @@
 
 <script>
     export default {
-        props:['titulos', 'itens', 'criar', 'detalhe', 'deletar', 'editar', 'token', 'ordem', 'ordemCol'],
+        props:['titulos', 'itens', 'criar', 'detalhe', 'deletar', 'editar', 'token', 'ordem', 'ordemCol', 'modal'],
         
         /*      
          *  Existem dois tipos de metodos para criar funções no Vue o computed e o methods
