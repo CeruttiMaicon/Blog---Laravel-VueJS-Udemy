@@ -117,9 +117,9 @@
 
                 if(ordem == "asc"){
                     this.itens.sort(function(a,b){
-                        if (a[ordemCol] > b[ordemCol]){
+                        if (Object.values(a)[ordemCol] > Object.values(b)[ordemCol]){
                             return 1;
-                        } else if (a[ordemCol] < b[ordemCol]){
+                        } else if (Object.values(a)[ordemCol] < Object.values(b)[ordemCol]){
                             return -1;
                         } else {
                             return 0;
@@ -127,9 +127,9 @@
                     });
                 } else {
                     this.itens.sort(function(a,b){
-                        if (a[ordemCol] < b[ordemCol]){
+                        if (Object.values(a)[ordemCol] < Object.values(b)[ordemCol]){
                             return 1;
-                        } else if (a[ordemCol] > b[ordemCol]){
+                        } else if (Object.values(a)[ordemCol] > Object.values(b)[ordemCol]){
                             return -1;
                         } else {
                             return 0;
@@ -143,25 +143,26 @@
 
                     O filter faz um laço de repeticao com todos os itens
                 */
+                /*     FUNÇÃO DE BUSCA
+                *   Se o valor encontrado for maior que zero é por que tem valores que se encaixam com a busca
+                *   toLowerCase() - Converte o valor do array em minusculos
+                *   indexOf()     - Faz a função de busca
+                *  
+                *   (res[i] + "") - Este trecho de ccódigo serve apenas para fazer a concatenação
+                *                   do valor com um vazio para transformalo em um tipo String
+                */ 
 
-                return this.itens.filter(res => {
 
-                    /*     FUNÇÃO DE BUSCA
-                     *   Se o valor encontrado for maior que zero é por que tem valores que se encaixam com a busca
-                     *   toLowerCase() - Converte o valor do array em minusculos
-                     *   indexOf()     - Faz a função de busca
-                     *  
-                     *   (res[i] + "") - Este trecho de ccódigo serve apenas para fazer a concatenação
-                     *                   do valor com um vazio para transformalo em um tipo String
-                     */ 
-
-                    for(let i = 0; i < res.length; i++){
-                        if((res[i] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0){
-                            return true;
-                        } 
-                    }
+                if (this.buscar){
+                    return this.itens.filter(res => {
+                        for(let i = 0; i < res.length; i++){
+                            if((res[i] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0){
+                                return true;
+                            } 
+                        }
                     return false;
-                });
+                    });
+                }
                 return this.itens;
             }
         },
