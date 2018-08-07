@@ -2,6 +2,7 @@
     <div>
         <!-- Div que deixa os elementos em linha (No bootstrap 4 deve ser adicionado form-inline-block ou form-inline-flex)-->
         <div class="form-inline-flex">
+            <p> {{this.$store.state.itens}} </p>
             <a v-if="criar && !modal" v-bind:href="criar">Criar</a>
             
             <modal-link v-if="criar && modal" tipo="link" nome="adicionar" titulo="Criar" css=""> </modal-link>
@@ -90,6 +91,13 @@
 
         computed:{
             lista:function(){
+                /*
+                 *                      Utilizando o Vuex, 
+                 *      Aqui estamos modificando o objeto do Vuex, com o metodo setItens
+                 * e utilizando o metodo commit assim na viasuliacao altera o tipo do objeto
+                 * a ser demonstrado
+                */
+                this.$store.commit('setItens', {opa:"OK"});
 
                 //Criando as variaveis locais
                 //Se for passado a tag ordem OU || valor padrao de ordenacao
