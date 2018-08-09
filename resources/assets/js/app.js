@@ -8,6 +8,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+
+// Importando o VUEX no projeto e fazendo a sua utilizacao
 window.Vuex = require('vuex');
 
 // Vuex
