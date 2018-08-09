@@ -2,7 +2,6 @@
     <div>
         <!-- Div que deixa os elementos em linha (No bootstrap 4 deve ser adicionado form-inline-block ou form-inline-flex)-->
         <div class="form-inline-flex">
-            <p> {{this.$store.state.itens}} </p>
             <a v-if="criar && !modal" v-bind:href="criar">Criar</a>
             
             <modal-link v-if="criar && modal" tipo="link" nome="adicionar" titulo="Criar" css=""> </modal-link>
@@ -20,6 +19,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- A variavel item tem as informacoes dos itens -->
                 <tr v-for="(item, index) in lista" :key="index">
                     <!-- Aqui é feito o formulario onde o Vue faz um for pegando os itens passados no array -->
                     <td v-for="i in item" :key="i">{{i}}</td>
@@ -31,7 +31,8 @@
                             <input type="hidden" name="_token" v-bind:value="token">
                             <a v-if="detalhe" v-bind:href="detalhe">Detalhes |</a> 
                             <a v-if="editar && !modal"  v-bind:href="editar" > Editar |</a>
-                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo=" Editar |" css=""> </modal-link>
+                            <!-- Aqui foi adicionado o v-bind:item="item" para que ele receba os dados do item -->
+                            <modal-link v-if="editar && modal" v-bind:item="item" tipo="link" nome="editar" titulo=" Editar |" css=""> </modal-link>
                             <!-- Funcao do botao delete -->
                             <a href="#" v-on:click="executaForm(index)"> Deletar </a>
                         </form>
@@ -97,7 +98,7 @@
                  * e utilizando o metodo commit assim na viasuliacao altera o tipo do objeto
                  * a ser demonstrado
                 */
-                this.$store.commit('setItens', {opa:"OK"});
+                // this.$store.commit('setItens', {opa:"OK"});
 
                 //Criando as variaveis locais
                 //Se for passado a tag ordem OU || valor padrao de ordenacao

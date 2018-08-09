@@ -46,11 +46,11 @@
         <formulario css="" action="#" method="put" enctype="multipart/form-data" token="123456">
             <div class="form-group">
                 <label for="titulo"> Titulo </label>
-                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo">
+                <input type="text" class="form-control" id="titulo" v-model="$store.state.item.titulo" name="titulo" placeholder="Titulo">
             </div>
             <div class="form-group">
                 <label for="descricao"> Descricao </label>
-                <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descricao">
+                <input type="text" class="form-control" id="descricao" v-model="$store.state.item.descricao" name="descricao" placeholder="Descricao">
             </div>
             <button class="btn btn-info">Atualizar</button>
 
